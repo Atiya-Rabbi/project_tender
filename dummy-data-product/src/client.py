@@ -4,11 +4,10 @@ import logging
 from datetime import datetime
 
 # Importing scraping and data processing modules
-# from dependencies.scraping.<file_name> import <class_name>
-# from dependencies.scraping.<file_name> import <class_name>
-# from dependencies.cleaning.<file_name> import <class_name>
-# from dependencies.geocoding.<file_name> import <class_name>
-# from dependencies.standardization.<file_name> import <class_name>
+from dependencies.scraping.scraper import ProjectsTenders
+from dependencies.cleaning.cleaning import CleanData
+from dependencies.geocoding.geocoder import GeoCoder
+from dependencies.standardization.standardizer import Standardizer
 
 dotenv.load_dotenv(".env")
 logging.basicConfig(level=logging.INFO)
@@ -17,22 +16,27 @@ logging.basicConfig(level=logging.INFO)
 # In each step create an object of the class, initialize the class with 
 # required configuration and call the run method 
 def step_1():
+    ProjectsTenders().scrape_metadata()
     logging.info("Scraped Metadata")
 
 
 def step_2():
+    ProjectsTenders().run_scraper()
     logging.info("Scraped Main Data")
 
 
 def step_3():
+    CleanData().clean_csv_data()
     logging.info("Cleaned Main Data")
 
 
 def step_4():
+    GeoCoder().geolocate()
     logging.info("Geocoded Cleaned Data")
 
 
 def step_5():
+    Standardizer().standardize_data()
     logging.info("Standardized Geocoded Data")
 
 
